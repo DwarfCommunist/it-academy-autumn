@@ -1,13 +1,14 @@
 """
 Оформите решение задач из прошлых домашних работ в функции.
 """
+import inspect
 from src.homework5 import functions
 
 
 def run_function_from_module(module_name, func_name):
     if hasattr(module_name, func_name):
         func_instance = getattr(module_name, func_name)
-        if callable(func_instance):
+        if inspect.isfunction(func_instance):
             print("Run func - ", func_name)
             func_instance()
         else:
@@ -22,7 +23,7 @@ def runner(*args):
          for param in args if isinstance(param, str)]
     else:
         [run_function_from_module(functions, param)
-         for param in dir(functions)]
+         for param in dir(functions) if not param.startswith('__')]
 
 
 runner()
